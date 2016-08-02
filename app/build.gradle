@@ -1,0 +1,31 @@
+apply plugin: 'com.android.model.application'
+model {
+    android {
+        compileSdkVersion 23
+        buildToolsVersion "23.0.3"
+        defaultConfig.with {
+            applicationId = "com.leo.jniexample"
+            minSdkVersion.apiLevel = 23
+            targetSdkVersion.apiLevel = 23
+            versionCode = 1
+            versionName = "1.0"
+        }
+    }
+    android.buildTypes {
+        release {
+            minifyEnabled = false
+            proguardFiles.add(file('proguard-android.txt'))
+        }
+    }
+    android.ndk {
+        moduleName = "hellojni"
+        ldLibs.addAll(["log"])
+        cppFlags.add("-fno-rtti")
+        cppFlags.add("-fno-exceptions")
+        stl = "system"
+    }
+
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
